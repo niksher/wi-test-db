@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 05 2017 г., 00:00
+-- Время создания: Июн 05 2017 г., 00:05
 -- Версия сервера: 5.6.29-log
 -- Версия PHP: 5.6.19
 
@@ -121,8 +121,6 @@ ALTER TABLE `user_order`
 --
 ALTER TABLE `user_order_ref`
   ADD PRIMARY KEY (`user_order_id`,`product_id`),
-  ADD UNIQUE KEY `user_order_id_2` (`user_order_id`),
-  ADD UNIQUE KEY `product_id` (`product_id`),
   ADD KEY `user_order_id` (`user_order_id`,`product_id`);
 
 --
@@ -159,6 +157,13 @@ ALTER TABLE `product`
 --
 ALTER TABLE `user_order`
   ADD CONSTRAINT `user_order_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `user_order_ref`
+--
+ALTER TABLE `user_order_ref`
+  ADD CONSTRAINT `user_order_ref_ibfk_1` FOREIGN KEY (`user_order_id`) REFERENCES `user_order` (`id`),
+  ADD CONSTRAINT `user_order_ref_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
